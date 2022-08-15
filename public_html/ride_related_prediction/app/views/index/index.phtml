@@ -1,0 +1,36 @@
+<?php
+
+    echo "<h2> Hey! </h2>";
+    
+?>
+    
+<div class="page-header">
+    <h2>Welcome to Predictions Software World!</h2>
+</div>
+
+<p>This page is located at <code>views/index/index.phtml</code></p>
+
+<?php
+    echo PHP_EOL;
+
+    echo PHP_EOL;
+
+    echo $this->tag->linkTo(
+        [
+            'phalcon/public_html/ride_related_prediction/signup',
+            'Sign Up Here!', 
+            'class' => 'btn btn-primary'
+        ]
+    );
+    // echo $this->tag->linkTo('signup', 'Sign Up Here!');
+?>
+
+<?php 
+    echo $this->tag->linkTo(
+        [
+            'phalcon/public_html/ride_related_prediction/login',
+            'Log In Here!', 
+            'class' => 'btn btn-success'
+        ]
+    );
+?>

@@ -1,0 +1,161 @@
+<?php echo Phalcon\Tag::stylesheetLink("css/styles.css"); ?>
+<?php echo Phalcon\Tag::stylesheetLink("css/form_extra_styles.css"); ?>
+<?php echo Phalcon\Tag::stylesheetLink("https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"); ?>
+
+<?php echo Phalcon\Tag::javascriptInclude("scripts/script.js"); ?>
+<?php echo Phalcon\Tag::javascriptInclude("javascript/jquery.js"); ?>
+
+<div class="progress">
+  <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">50%</div>
+</div>
+
+<div class="container">
+
+    <h2 class="mt-3 mb-4"> SignUp Please! </h2>
+
+    <?php // echo $this->tag->form("signup/register"); ?>
+    <?php echo $this->tag->form("phalcon/public_html/ride_related_prediction/signup/register"); ?>
+
+    <div class="mb-3 row">
+        <label for="first_name" class="form-label col-sm-2"> First Name </label>
+        <div class="col-sm-10">
+            <?php echo $this->tag->textField(
+                [
+                    "first_name",
+                    "class" => "form-control col-sm-10"
+                ]
+            ); ?>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="last_name" class="form-label col-sm-2"> Last Name </label>
+        <div class="col-sm-10">
+            <?php echo $this->tag->textField(
+                [
+                    'last_name',
+                    "class" => "form-control col-sm-10"
+                ]
+            ); ?>
+        </div>
+    </div>
+
+    <p>
+        <label for="email" class="form-label"> E-mail </label>
+        <?php echo Phalcon\Tag::emailField(
+            [
+                'email',
+                "class" => "form-control"
+            ]
+        ); ?>
+    </p>
+
+    <p>
+        <label for="email" class="form-label"> Password </label>
+        <?php echo Phalcon\Tag::passwordField(
+            [
+                'password',
+                'size' => 30,
+                "class" => "form-control"
+            ]
+        ); ?>
+    </p>
+
+    <p>
+        <label for="birth_date" class="form-label"> Birth Date </label>
+        <?php echo Phalcon\Tag::dateField(
+            [
+                "birth_date",
+                "class" => "form-control"
+            ]
+        ); ?>
+    </p>
+
+        <?php /** Profile Picture */ ?>
+    <p>
+        <label for="file" class="form-label"> Profile Picture </label>
+        <?php echo Phalcon\Tag::fileField(
+            [
+                "image",
+                "class" => "form-control"
+            ]
+        ); ?>
+    </p>
+    <!-- Chosen Image will show Here -->
+    <!-- <p>
+        <label for="image"> Profile Picture </label> -->
+        <?php /** echo Phalcon\Tag::image(
+            [
+                "src" => "img/default_image.png",
+                "alt" => "default_image",
+                "width" => "150px",
+                "height" => "150px"
+            ]
+        ); */ ?>
+    <!-- </p> -->
+
+    <!-- <p>
+        <label for="image"> Profile Picture </label> -->
+        <?php /** echo Phalcon\Tag::imageInput(
+            [
+                "src" => "/phalcon/ride_related_prediction/public/img/default_image.png",
+                "alt" => "default_image",
+                "width" => "150px",
+                "height" => "150px"
+            ]
+        ); */ ?>
+    <!-- </p> -->
+
+
+    <p>
+        <label for="tel"> Phone Number </label>
+        <?php echo Phalcon\Tag::telField(
+            [
+                "contact_number",
+                "class" => "form-control"
+            ]
+        ); ?>
+    </p>
+
+        <?php /** Gender */ ?>
+
+    <p class="form-check">
+        <?php echo Phalcon\Tag::radioField(
+            [
+                "gender",
+                "value" => 'male',
+                "class" => "form-check-input"
+            ]
+        ); ?>
+        <label for="gender" class="form-check-label"> Male </label>
+    </p>
+    <p class="form-check">
+        <?php echo Phalcon\Tag::radioField(
+            [
+                "gender",
+                "value" => 'female',
+                "class" => "form-check-input"
+            ]
+        ); ?>
+        <label for="gender" class="form-check-label"> Female </label>
+    </p>
+    <p class="form-check">
+        <?php echo Phalcon\Tag::radioField(
+            [
+                "gender",
+                "value" => 'rns',
+                "class" => "form-check-input"
+            ]
+        ); ?>
+        <label for="gender" class="form-check-label"> Other </label>
+    </p>
+
+    <p class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+        <?php echo $this->tag->submitButton(
+            [
+                'Register', 
+                "class" => "btn btn-success"
+            ]
+    ); ?>
+    </p>
+</div>
