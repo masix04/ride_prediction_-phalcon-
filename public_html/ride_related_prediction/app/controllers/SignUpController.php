@@ -19,20 +19,20 @@ class SignUpController extends ControllerBase
             {
                 switch ($data) {
                     case 'male':
-                        $data = 1; 
-                        echo $data;
+                        $POST_DATA[$key] = 1; 
+                        // echo $data;
                         break;
                     case 'female':
-                        $data = 2;
-                        echo $data;
+                        $POST_DATA[$key] = 2;
+                        // echo $data;
                         break;
                     case 'rns':
-                        $data = 0;
-                        echo $data;
+                        $POST_DATA[$key] = 0;
+                        // echo $data;
                         break;
                         default:
-                        $data = 99;
-                        echo $data;
+                        $POST_DATA[$key] = 99;
+                        // echo $data;
                 }
             }
         }
@@ -67,33 +67,63 @@ class SignUpController extends ControllerBase
                     ->orWhere("contact_number = NULL")
                     ->execute();
 
+                // echo count($isPhoneNumberMatched);
+
                 if(count($isPhoneNumberMatched)) {
-                    echo "User Already Exists with this Contact Number". $this->request->getPost('contact_number')." .";
+                    // echo "<pre>";
+                    // print_r($isPhoneNumberMatched['_rows']);
+                    echo "User Already Exists with this Contact Number ". $this->request->getPost('contact_number')." .";
                     $this->response->redirect('phalcon/public_html/ride_related_prediction/signup');
                     // return; // End of Validation
                 }
                 // echo($isUserExists);
             }
         }
-        echo "\n".$user_id."\n";
+        // echo "\n".$user_id."\n";
         
-        $POST_DATA = array_merge($POST_DATA, ['id' => $user_id]);
+        $POST_DATA = array_merge($POST_DATA, ['id' => $user_id, 'active' => 0]);
         
-        echo "<pre>";
-        print_r($POST_DATA);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($POST_DATA);
+        // echo "</pre>";
 
         if($user_id) {
             $success = $user->save(
                 $POST_DATA,
                 [
-                    "id", "firstname", "lastname", "email", "password", "gender", "contact_number","image", "birth_date", "admission_at" 
+                    "id", "firstname", "lastname", "email", "password", "gender", "contact_number","image", "birth_date", "active" 
                 ]  
             );
         
-
             if($success) {
-                echo "Thanks you for signing up!";
+                // echo "Thanks you for signing up!";
+
+                {
+                    /** Helps to render views without hierarchical levels */
+                    // $view = new Simple();
+                    // $view->setViewsDir('../app/views/');
+                    // Move to Dashboard, if Signed Up SuccessFully.
+                    // $this->view->pick('dashboard/index') = $POST_DATA['firstname'] . ' ' . $POST_DATA['lastname'];
+                    // return $view;
+                    // $this->dashboardAction($view, $POST_DATA['firstname'] . ' ' . $POST_DATA['lastname']);
+                    // $view->dashboard = $username;
+                    // echo $view->render(
+                    //     'dashboard/index',
+                    //     [
+                    //         "username" => $POST_DATA['firstname'] . ' ' . $POST_DATA['lastname']
+                    //     ]
+                    // );
+
+                    /** Sends to another Controller  */
+                    $this->dispatcher->forward([
+                        'controller' => "index",
+                        'action' => "dashboard",
+                        'params' => 
+                            [
+                                "username" => $POST_DATA['firstname'] . ' ' . $POST_DATA['lastname']
+                            ]
+                    ]);
+                }
             }
             else {
                 echo "Oops, seems like the following issues were encountered: ";
@@ -105,16 +135,9 @@ class SignUpController extends ControllerBase
             }
         }
 
-            /** Helps to render views without hierarchical levels */
-        $view = new Simple();
-        $view->setViewsDir('../app/views/');
-        // Move to Dashboard, if Signed Up SuccessFully.
-
-        $view->render(
-            'dashboard/index',
-            [
-                "username" => $POST_DATA['first_name'] . ' ' . $POST_DATA['last_name']
-            ]
-        );
     }
+    // public function dashboardAction($view, $username) 
+    // {
+    //     $view->dashboard = $username;
+    // }
 }

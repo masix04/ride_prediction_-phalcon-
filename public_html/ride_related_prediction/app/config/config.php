@@ -10,7 +10,24 @@ defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirn
 // OR defined('/crudphalcon/')
 defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 
-return new \Phalcon\Config([
+
+// use Phalcon\Config\Adapter\Ini;
+// use Phalcon\Di;
+// use Phalcon\Db\Adapter\Pdo\Factory;
+
+// $di = new Di();
+// $config = new Ini('config.ini');
+
+// $di->set('config', $config);
+
+// $di->set(
+//     'db', 
+//     function () {
+//         return Factory::load($this->config->database);
+//     }
+// );
+
+return $connection = new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
         'host'        => 'localhost',

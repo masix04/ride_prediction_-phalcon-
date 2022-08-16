@@ -67,6 +67,12 @@ class Users extends \Phalcon\Mvc\Model
     public $created_at;
 
     /**
+     *
+     * @var integer
+     */
+    public $active;
+
+    /**
      * Validations and business logic
      *
      * @return boolean
